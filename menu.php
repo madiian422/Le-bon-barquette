@@ -3,10 +3,18 @@
 class menu
 {
 
-    protected $nomDuMenu;
+    protected $nom;
     protected $prix;
     protected $description;
 
+    public function __construct()
+    {
+    }
+
+    public function __toString()
+    {
+        return $this->nomDuMenu . " " . $this->prix . " " . $this->description;
+    }
 
 
     public function getNomDuMenu()
