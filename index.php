@@ -146,7 +146,7 @@ if (isset($_POST['nom'])){
 */
 ?>
 <div class="container register">
-        <form action="insererClient.php" name="ajout" method="post">
+        <form action="accueil.php" name="ajout" method="post">
                 <div class="row">
                     <div class="col-md-3 register-left">
                         <img src="img/fourchette.png" alt=""/>
