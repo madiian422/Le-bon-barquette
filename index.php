@@ -1,5 +1,9 @@
 <?php
-//test push soupapoule
+session_start();
+if (!isset($_SESSION['name']) && !isset($_SESSION['id'])){
+    $_SESSION['name']=null;
+    $_SESSION['id']=null;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -118,15 +122,15 @@
 
 
 if (isset($_POST['log'])){
-    include("user.php");
+    include("classe/user.php");
 
     $host="127.0.0.1";
-    $dbname= "expernetbdd";
+    $dbname= "resto";
     $login = "root";
     $db= new PDO("mysql:host=".$host.";dbname=".$dbname."",$login,"");
     
-    $log =$_POST['log'];
-    $pass =$_POST['pass'];
+    $log = $_POST['log'];
+    $pass = $_POST['pass'];
    
     
     
@@ -135,7 +139,15 @@ if (isset($_POST['log'])){
     $requete->bindParam(":login",$log);
     $requete->bindParam(":pass",$pass);
     $requete->execute();
-    var_dump($requete);
+    $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
+    $resultat = $requete->fetchAll();
+    if (!empty($resultat)){
+        header("location: accueil.php");
+    }
+    else{
+
+        var_dump($resultat);
+    }
 }
 
 
