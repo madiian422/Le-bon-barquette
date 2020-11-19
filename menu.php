@@ -5,6 +5,7 @@ class menu
 
     protected $nomDuMenu;
     protected $prix;
+    protected $description;
 
 
 
@@ -38,6 +39,23 @@ class menu
     public function setPrix($prix)
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of marque
+     *
+     * @return  self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
