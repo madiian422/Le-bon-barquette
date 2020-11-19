@@ -111,7 +111,7 @@
 
 <!------ Include the above in your HEAD tag ---------->
 <?php
-
+/*
 if (isset($_POST['nom'])){
     include("client.php");
 
@@ -140,7 +140,7 @@ if (isset($_POST['nom'])){
 }
 
 
-
+*/
 ?>
 <div class="container register">
         <form action="insererClient.php" name="ajout" method="post">
