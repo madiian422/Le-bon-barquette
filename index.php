@@ -114,39 +114,34 @@
 
 <!------ Include the above in your HEAD tag ---------->
 <?php
-/*
-if (isset($_POST['nom'])){
-    //include("client.php");
+
+
+
+if (isset($_POST['log'])){
+    include("user.php");
 
     $host="127.0.0.1";
     $dbname= "expernetbdd";
     $login = "root";
     $db= new PDO("mysql:host=".$host.";dbname=".$dbname."",$login,"");
     
-    $id =$_POST['id'];
-    $nom =$_POST['nom'];
-    $prenom =$_POST['prenom'];
-    $tel =$_POST['tel'];
-    $ville =$_POST['ville'];
+    $log =$_POST['log'];
+    $pass =$_POST['pass'];
+   
     
     
     
-    $requete = $db->prepare(' insert into client (`id`, `nom`, `prenom`, `telephone`, `date_dernier_achat`, `portefeuille`, `ville`) values(:id, :nom, :prenom, :tel, "2020-11-18" ,0, :ville');
-    $requete->bindParam(":id",$id);
-    $requete->bindParam(":nom",$nom);
-    $requete->bindParam(":prenom",$prenom);
-    $requete->bindParam(":tel",$tel);
-    $requete->bindParam(":ville",$ville);
+    $requete = $db->prepare(' SELECT * FROM `utilisateur` WHERE  `login`= :login AND `password`= :pass ');
+    $requete->bindParam(":login",$log);
+    $requete->bindParam(":pass",$pass);
     $requete->execute();
-    $requete->setFetchMode(PDO::FETCH_CLASS,'Client');
-    $resultat = $requete->fetchAll();
+    var_dump($requete);
 }
 
 
-*/
 ?>
 <div class="container register">
-        <form action="accueil.php" name="ajout" method="post">
+        <form action="index.php" name="ajout" method="post">
                 <div class="row">
                     <div class="col-md-3 register-left">
                         <img src="img/fourchette.png" alt=""/>
@@ -160,14 +155,14 @@ if (isset($_POST['nom'])){
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="identifiants *" value="" name="prenom" id="prenom"/>
+                                            <input type="text" class="form-control" placeholder="identifiants *" value="" name="log" id="log"/>
                                         </div>
                                        
                                        
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="mot de passe *" value="" name="nom" id="nom" />
+                                            <input type="password" class="form-control" placeholder="mot de passe *" value="" name="pass" id="pass" />
                                         </div>
                                         
                                        
