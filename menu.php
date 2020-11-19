@@ -3,7 +3,7 @@
 class menu
 {
 
-    protected $nomDuMenu;
+    protected $nom;
     protected $prix;
     protected $description;
 
