@@ -1,9 +1,10 @@
 <?php
 
-    class menu{
+class menu
+{
 
-        protected $nomDuMenu;
-        protected $prix;
+    protected $nomDuMenu;
+    protected $prix;
 
 
 
@@ -16,7 +17,7 @@
      * Set the value of marque
      *
      * @return  self
-     */ 
+     */
     public function setNomDuMenu($nomDuMenu)
     {
         $this->nomDuMenu = $nomDuMenu;
@@ -40,5 +41,4 @@
 
         return $this;
     }
-
-    }
+}
