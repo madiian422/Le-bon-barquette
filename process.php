@@ -3,7 +3,7 @@ session_start();
 
 $database = new PDO('mysql:host=localhost; dbname=resto', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
-$update = false;
+//$update = false;
 $name = '';
 $prix = '';
 $description = '';
@@ -22,7 +22,8 @@ if (isset($_POST['save'])) {
     $_SESSION['message'] = "Enregistrement sauvegardé ! ";
     $_SESSION['msg_type'] = "success ";
 
-    //header("location:crud.php");
+
+    header("location:crud.php");
 
     // $table = $database->prepare("INSERT INTO data (name,prix,description) VALUES ('$name','$prix','$description' ");
     // $table->execute();
@@ -42,10 +43,10 @@ if (isset($_GET['delete'])) {
 
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
-    $result = $database->query("SELECT * FROM menu WHERE id=$id ");
+    $result = $database->query("SELECT * FROM data WHERE id=$id ");
 
     if (count($result) == 1) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $row = $result->fetch();
         $name = $row['name'];
         $prix = $row['prix'];
         $description = $row['description'];
