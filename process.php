@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$database = new PDO('mysql:host=localhost; dbname=nouvelle_base', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+$database = new PDO('mysql:host=localhost; dbname=resto', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
 $name = '';
 $prix = '';
@@ -16,7 +16,7 @@ if (isset($_POST['save'])) {
 
 
 
-    $database->query("INSERT INTO data (name, prix, description) VALUES ('$name','$prix','$description') ");
+    $database->query("INSERT INTO menu (name, prix, description) VALUES ('$name','$prix','$description') ");
 
     $_SESSION['message'] = "Enregistrement sauvegardé ! ";
     $_SESSION['msg_type'] = "success ";
@@ -30,11 +30,11 @@ if (isset($_POST['save'])) {
 }
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $database->exec("DELETE FROM data WHERE id = '$id'");
+    $database->query("DELETE FROM menu WHERE id = $id");
 
 
     $_SESSION['message'] = "Enregistrement effacé ! ";
-    $_SESSION['msg_type'] = "success ";
+    $_SESSION['msg_type'] = "danger ";
 
     header("location:crud.php");
 }

@@ -34,8 +34,8 @@
         </div>
     <?php endif ?>
     <?php
-    $database = new PDO('mysql:host=localhost; dbname=nouvelle_base', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-    $resultat = $database->query("SELECT * FROM data");
+    $database = new PDO('mysql:host=localhost; dbname=resto', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+    $resultat = $database->query("SELECT * FROM menu");
 
     ?>
     <div class="container-fluid">
@@ -61,7 +61,7 @@
                         <td><?php echo $row['prix']; ?></td>
                         <td><?php echo $row['description']; ?></td>
                         <td>
-                            <a href="crud.php?edit=<?php echo $row['id'] ?>" class="btn btn-info">Modifier</a>
+                            <a href="crud.php?edit=<?php echo $row['id']; ?>" class="btn btn-info">Modifier</a>
                             <a href="process.php?delete=<?php $row['id']; ?>" class="btn btn-danger">Supprimer</a>
                         </td>
                     </tr>
