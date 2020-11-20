@@ -5,9 +5,10 @@ class Utilisateur {
     private $prenom;
     private $tel;
     private $adresse;
-    private $ville;
     private $login;
     private $password;
+    private $ville;
+    
     
     public function __construct()
     {
@@ -121,25 +122,7 @@ class Utilisateur {
         return $this;
     }
 
-    /**
-     * Get the value of ville
-     */ 
-    public function getVille()
-    {
-        return $this->ville;
-    }
-
-    /**
-     * Set the value of ville
-     *
-     * @return  self
-     */ 
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
+    
 
     /**
      * Get the value of login
@@ -177,6 +160,25 @@ class Utilisateur {
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+    /**
+     * Get the value of ville
+     */ 
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set the value of ville
+     *
+     * @return  self
+     */ 
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
 
         return $this;
     }

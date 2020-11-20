@@ -1,3 +1,10 @@
+<?php
+
+if (!isset($_SESSION['name']) && !isset($_SESSION['id'])){
+    
+    //header("location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,14 +65,15 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="main-navigation">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#about" class="page-scroll">About Us</a></li>  
-                        <li><a href="#about" class="page-scroll">Specials</a></li>    
-                        <li><a href="#the-menu" class="page-scroll">Our Menu</a></li>      
-                        <li><a href="#about" class="page-scroll">Book a Table</a></li>                 
+                        <li><a href="#about" class="page-scroll">notre société</a></li>  
+                        <li><a href="#the-menu" class="page-scroll">nos menus</a></li>    
+                        <li><a href="#the-menu" class="page-scroll">mon compte</a></li>      
+                        <li><a href="#about" class="page-scroll">déconnexion</a></li>                 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Extras <span class="pe-7s-angle-down"></span></a>
+                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">autre <span class="pe-7s-angle-down"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="404.html">404</a></li>
+                                <li><a href="404.html">mon compte</a></li>
+                                <li><a href="404.html">déconnexion</a></li>
                             </ul>
                         </li>
                         <li><a href="#search"><i class="fa fa-search"></i></a></li>
@@ -333,9 +341,7 @@
             </div>
     	</section>
 
-        <section>
-            <div id="mapwrapper"></div>  
-        </section>
+        
 
         <footer class="white-wrapper">
             <div class="container-fluid">
@@ -378,7 +384,6 @@
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/plugins.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="assets/js/init.js"></script>
 
    

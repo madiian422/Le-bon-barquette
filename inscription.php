@@ -11,7 +11,7 @@
   </head>
   <style>
   .register{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    background-image: url("img/carry2.jpg");
     margin-top: 3%;
     padding: 3%;
 }
@@ -111,9 +111,8 @@
 
 <!------ Include the above in your HEAD tag ---------->
 <?php
-/*
 if (isset($_POST['nom'])){
-    include("client.php");
+    include("classe/user.php");
 
     $host="127.0.0.1";
     $dbname= "expernetbdd";
@@ -124,36 +123,42 @@ if (isset($_POST['nom'])){
     $nom =$_POST['nom'];
     $prenom =$_POST['prenom'];
     $tel =$_POST['tel'];
+    $adresse =$_POST['adresse'];
+    $login =$_POST['login'];
+    $password =$_POST['password'];
     $ville =$_POST['ville'];
     
     
     
-    $requete = $db->prepare(' insert into client (`id`, `nom`, `prenom`, `telephone`, `date_dernier_achat`, `portefeuille`, `ville`) values(:id, :nom, :prenom, :tel, "2020-11-18" ,0, :ville');
+    $requete = $db->prepare(' INSERT INTO `utilisateur`(`id`, `nom`, `prenom`, `tel`, `adresse`, `login`, `password`, `ville`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])');
     $requete->bindParam(":id",$id);
     $requete->bindParam(":nom",$nom);
     $requete->bindParam(":prenom",$prenom);
     $requete->bindParam(":tel",$tel);
+    $requete->bindParam(":adresse",$adresse);
+    $requete->bindParam(":login",$login);
+    $requete->bindParam(":password",$password);
     $requete->bindParam(":ville",$ville);
     $requete->execute();
-    $requete->setFetchMode(PDO::FETCH_CLASS,'Client');
+    $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
     $resultat = $requete->fetchAll();
 }
 
 
-*/
+
 ?>
 <div class="container register">
-        <form action="insererClient.php" name="ajout" method="post">
+<form action="inscription.php" name="ajout" method="post">
                 <div class="row">
                     <div class="col-md-3 register-left">
-                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
-                        <h3>Welcome</h3>
+                        <img src="img/fourchette.png" alt=""/>
+                        <h3>Connexion</h3>
                     </div>
                     <div class="col-md-9 register-right">
                         
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <h3 class="register-heading">Apply as a Employee</h3>
+                                <h3 class="register-heading">Entrez vos informations</h3>
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -162,6 +167,13 @@ if (isset($_POST['nom'])){
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="tel *" value="" name="tel" id="tel"/>
                                         </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="login *" value="" name="login" id="login"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="password *" value="" name="password" id="password" />
+                                        </div>
+
                                        
                                     </div>
                                     <div class="col-md-6">
@@ -173,6 +185,9 @@ if (isset($_POST['nom'])){
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="ville *" value="" name="ville" id="ville"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="password *" value="" name="password2" id="password2" onBlur="checkPass"/>
                                         </div>
                                        
                                        
@@ -190,5 +205,21 @@ if (isset($_POST['nom'])){
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function checkPass()
+        {
+            var champA = document.getElementById("password").value;
+            var champB = document.getElementById("password2").value;
+            
+            if(champA == champB)
+            {
+                document.form.submit();
+            }
+            else
+            {
+                alert("Error");
+            }
+        }
+            </script>
   </body>
 </html>

@@ -1,9 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['name']) && !isset($_SESSION['id'])){
-    $_SESSION['name']=null;
-    $_SESSION['id']=null;
-}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -139,10 +136,17 @@ if (isset($_POST['log'])){
     $requete->bindParam(":login",$log);
     $requete->bindParam(":pass",$pass);
     $requete->execute();
-    $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
+    $requete->setFetchMode(PDO::FETCH_CLASS,'utilisateur');
     $resultat = $requete->fetchAll();
     if (!empty($resultat)){
+        foreach ($resultat as $unePersonne=>$donnee )
+        {
+            $_SESSION['name']=$donnee->getNom();
+            $_SESSION['id']=$donnee->getid();
+            
+        }
         header("location: accueil.php");
+        
     }
     else{
 
@@ -180,7 +184,7 @@ if (isset($_POST['log'])){
                                        
                                        
                                         <input type="submit" class="btnRegister"  name="conn" value="connexion"/>
-                                        <input type="submit" class="btnRegister"  name="inscrip" value="inscription"/>
+                                        <a href="inscription.php" > pas de compte?</a>
                                     </div>
                                 </div>
                             </div>
