@@ -122,7 +122,7 @@ $_SESSION['ville']="";
 
 <!------ Include the above in your HEAD tag ---------->
 <?php
-if (isset($_POST['nom'])){
+if (!isset($_POST['nominsc'])){
     include("classe/user.php");
 
     $host="127.0.0.1";
@@ -139,6 +139,12 @@ if (isset($_POST['nom'])){
     $password =$_POST['password'];
     $password2 =$_POST['password2'];
     $ville =$_POST['ville'];
+    echo $nom;
+    echo $prenom;
+    echo $tel;
+    echo $adresse;
+    echo $login;
+    echo $password;
     if($password2!== $password){
         
         $_SESSION['nominsc']=$_POST['nom']; 
@@ -147,23 +153,35 @@ if (isset($_POST['nom'])){
         $_SESSION['adresse']=$_POST['adresse'];  
         $_SESSION['login']=$_POST['login'];  
         $_SESSION['ville']=$_POST['ville'];  
-        header("location: inscription");   
+        header("location: inscription.php");   
     }
     
     
+    try{
+        $requete = $db->prepare(" INSERT INTO `utilisateur`( `nom`, `prenom`, `tel`, `adresse`, `login`, `password`, `ville`) VALUES (:nom,:prenom,:tel,:adresse,:login,:password,:ville)"  );
+  
+        $requete->bindParam(":nom",$nom);
+        $requete->bindParam(":prenom",$prenom);
+        $requete->bindParam(":tel",$tel);
+        $requete->bindParam(":adresse",$adresse);
+        $requete->bindParam(":login",$login);
+        $requete->bindParam(":password",$password);
+        $requete->bindParam(":ville",$ville);
+        $requete->execute();
+        $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
+        $resultat = $requete->fetchAll();
+        var_dump($resultat);
+    }
+    catch(Exeption $er){
+        $er="nop";
+    }
+    if ($er=="nop"){
+        header("location: inscription.php");
+    }
+    else{
+        header("location: index.php");
+    }
     
-    $requete = $db->prepare(' INSERT INTO `utilisateur`(`id`, `nom`, `prenom`, `tel`, `adresse`, `login`, `password`, `ville`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])');
-    $requete->bindParam(":id",$id);
-    $requete->bindParam(":nom",$nom);
-    $requete->bindParam(":prenom",$prenom);
-    $requete->bindParam(":tel",$tel);
-    $requete->bindParam(":adresse",$adresse);
-    $requete->bindParam(":login",$login);
-    $requete->bindParam(":password",$password);
-    $requete->bindParam(":ville",$ville);
-    $requete->execute();
-    $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
-    $resultat = $requete->fetchAll();
 }
 
 
