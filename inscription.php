@@ -1,3 +1,14 @@
+<?php
+if (!isset($_SESSION['idinsc'])&& !isset($_SESSION['nominsc']) && !isset($_SESSION['prenom']) && !isset($_SESSION['tel']) && !isset($_SESSION['adresse']))
+
+$_SESSION['idinsc']="";
+$_SESSION['nominsc']="";
+$_SESSION['prenom']="";
+$_SESSION['tel']="";
+$_SESSION['adresse']="";
+$_SESSION['login']="";
+$_SESSION['ville']="";
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -115,18 +126,29 @@ if (isset($_POST['nom'])){
     include("classe/user.php");
 
     $host="127.0.0.1";
-    $dbname= "expernetbdd";
+    $dbname= "resto";
     $login = "root";
     $db= new PDO("mysql:host=".$host.";dbname=".$dbname."",$login,"");
     
-    $id =$_POST['id'];
+    
     $nom =$_POST['nom'];
     $prenom =$_POST['prenom'];
     $tel =$_POST['tel'];
     $adresse =$_POST['adresse'];
     $login =$_POST['login'];
     $password =$_POST['password'];
+    $password2 =$_POST['password2'];
     $ville =$_POST['ville'];
+    if($password2!== $password){
+        
+        $_SESSION['nominsc']=$_POST['nom']; 
+        $_SESSION['prenom']=$_POST['prenom']; 
+        $_SESSION['tel']=$_POST['tel'];   
+        $_SESSION['adresse']=$_POST['adresse'];  
+        $_SESSION['login']=$_POST['login'];  
+        $_SESSION['ville']=$_POST['ville'];  
+        header("location: inscription");   
+    }
     
     
     
@@ -162,7 +184,7 @@ if (isset($_POST['nom'])){
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="prenom *" value="" name="prenom" id="prenom"/>
+                                            <input type="text" class="form-control" placeholder="prenom *" value="<?php echo $_SESSION['prenom'];?>" name="prenom" id="prenom"/>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="tel *" value="" name="tel" id="tel"/>
@@ -187,11 +209,11 @@ if (isset($_POST['nom'])){
                                             <input type="text" class="form-control" placeholder="ville *" value="" name="ville" id="ville"/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="password *" value="" name="password2" id="password2" onBlur="checkPass"/>
+                                            <input type="text" class="form-control" placeholder="password *" value="" name="password2" id="password2" />
                                         </div>
                                        
                                        
-                                        <input type="submit" class="btnRegister"  value="enregistrer"/>
+                                        <input type="submit" class="btnRegister"  value="enregistrer" onclick="checkPass()"/>
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +239,7 @@ if (isset($_POST['nom'])){
             }
             else
             {
-                alert("Error");
+                alert("veuillez remplir les champs correctement");
             }
         }
             </script>
