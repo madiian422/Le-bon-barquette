@@ -22,7 +22,6 @@ if (isset($_POST['save'])) {
     $_SESSION['message'] = "Enregistrement sauvegardé ! ";
     $_SESSION['msg_type'] = "success ";
 
-
     header("location:crud.php");
 
     // $table = $database->prepare("INSERT INTO data (name,prix,description) VALUES ('$name','$prix','$description' ");
