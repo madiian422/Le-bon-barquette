@@ -1,8 +1,8 @@
 <?php
 
-if (!isset($_SESSION['name']) && !isset($_SESSION['id'])){
+if (isset($_SESSION['name']) && !isset($_SESSION['id'])){
     
-    //header("location: index.php");
+    header("location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -67,13 +67,12 @@ if (!isset($_SESSION['name']) && !isset($_SESSION['id'])){
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#about" class="page-scroll">notre société</a></li>  
                         <li><a href="#the-menu" class="page-scroll">nos menus</a></li>    
-                        <li><a href="#the-menu" class="page-scroll">mon compte</a></li>      
-                        <li><a href="#about" class="page-scroll">déconnexion</a></li>                 
+                                       
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">autre <span class="pe-7s-angle-down"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="404.html">mon compte</a></li>
-                                <li><a href="404.html">déconnexion</a></li>
+                                <li><a  onclick="myFunction()">déconnexion</a></li>
                             </ul>
                         </li>
                         <li><a href="#search"><i class="fa fa-search"></i></a></li>
@@ -397,6 +396,21 @@ if (!isset($_SESSION['name']) && !isset($_SESSION['id'])){
           "img/carry.jpg",
         ], {duration: 8000, fade: 500});
     });
+    </script>
+    <script>
+    
+    function myFunction() {
+  var txt;
+  var r = confirm("êtes vous sûr de vouloir vous déconnecter? y/n");
+  if (r == true) {
+    document.location.href="deconnexion.php";
+  } else {
+      location.reload();
+  }
+  
+}
+        
+
     </script>
 
 </body>
