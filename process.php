@@ -3,6 +3,7 @@ session_start();
 
 $database = new PDO('mysql:host=localhost; dbname=resto', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
+//$update = false;
 $name = '';
 $prix = '';
 $description = '';
@@ -39,14 +40,14 @@ if (isset($_GET['delete'])) {
     header("location:crud.php");
 }
 
-// if (isset($_GET['edit'])) {
-//     $id = $_GET['id'];
-//     $result = $database->query("SELECT * FROM data WHERE id=$id ");
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $result = $database->query("SELECT * FROM data WHERE id=$id ");
 
-//     if (count($result) == 1) {
-//         $row = $result->fetch();
-//         $name = $row['name'];
-//         $prix = $row['prix'];
-//         $description = $row['description'];
-//     }
-// }
+    if (count($result) == 1) {
+        $row = $result->fetch();
+        $name = $row['name'];
+        $prix = $row['prix'];
+        $description = $row['description'];
+    }
+}

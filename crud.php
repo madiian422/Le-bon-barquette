@@ -84,7 +84,12 @@
                 <textarea class="form-control" rows="5" id="comment" name="description" value="<?php echo $description; ?>"></textarea>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary" name="save">Enregistrer</button>
+                <?php if ($update == true) : ?>
+                    <button type="submit" class="btn btn-info" name="update">Modifier</button>
+                <?php else : ?>
+
+                    <button class="btn btn-primary" name="save">Enregistrer</button>
+                <?php endif; ?>
             </div>
         </form>
     </div>

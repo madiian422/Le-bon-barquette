@@ -122,7 +122,11 @@ $_SESSION['ville']="";
 
 <!------ Include the above in your HEAD tag ---------->
 <?php
+<<<<<<< HEAD
+if (isset($_POST['nom'])){
+=======
 if (!isset($_POST['nominsc'])){
+>>>>>>> 574bd59dfd2ad6f6ef7763efacf9af059011af59
     include("classe/user.php");
 
     $host="127.0.0.1";
@@ -139,12 +143,15 @@ if (!isset($_POST['nominsc'])){
     $password =$_POST['password'];
     $password2 =$_POST['password2'];
     $ville =$_POST['ville'];
+<<<<<<< HEAD
+=======
     echo $nom;
     echo $prenom;
     echo $tel;
     echo $adresse;
     echo $login;
     echo $password;
+>>>>>>> 574bd59dfd2ad6f6ef7763efacf9af059011af59
     if($password2!== $password){
         
         $_SESSION['nominsc']=$_POST['nom']; 
@@ -153,6 +160,25 @@ if (!isset($_POST['nominsc'])){
         $_SESSION['adresse']=$_POST['adresse'];  
         $_SESSION['login']=$_POST['login'];  
         $_SESSION['ville']=$_POST['ville'];  
+<<<<<<< HEAD
+        header("location: inscription");   
+    }
+    
+    
+    
+    $requete = $db->prepare(' INSERT INTO `utilisateur`(`id`, `nom`, `prenom`, `tel`, `adresse`, `login`, `password`, `ville`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])');
+    $requete->bindParam(":id",$id);
+    $requete->bindParam(":nom",$nom);
+    $requete->bindParam(":prenom",$prenom);
+    $requete->bindParam(":tel",$tel);
+    $requete->bindParam(":adresse",$adresse);
+    $requete->bindParam(":login",$login);
+    $requete->bindParam(":password",$password);
+    $requete->bindParam(":ville",$ville);
+    $requete->execute();
+    $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
+    $resultat = $requete->fetchAll();
+=======
         header("location: inscription.php");   
     }
     
@@ -182,6 +208,7 @@ if (!isset($_POST['nominsc'])){
         header("location: index.php");
     }
     
+>>>>>>> 574bd59dfd2ad6f6ef7763efacf9af059011af59
 }
 
 
