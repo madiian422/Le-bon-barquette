@@ -1,6 +1,13 @@
 <?php
-session_start();
+if (!isset($_SESSION['idinsc'])&& !isset($_SESSION['nominsc']) && !isset($_SESSION['prenom']) && !isset($_SESSION['tel']) && !isset($_SESSION['adresse']))
 
+$_SESSION['idinsc']="";
+$_SESSION['nominsc']="";
+$_SESSION['prenom']="";
+$_SESSION['tel']="";
+$_SESSION['adresse']="";
+$_SESSION['login']="";
+$_SESSION['ville']="";
 ?>
 <!doctype html>
 <html lang="en">
@@ -115,10 +122,7 @@ session_start();
 
 <!------ Include the above in your HEAD tag ---------->
 <?php
-
-
-
-if (isset($_POST['log'])){
+if (isset($_POST['nom'])){
     include("classe/user.php");
 
     $host="127.0.0.1";
@@ -126,38 +130,47 @@ if (isset($_POST['log'])){
     $login = "root";
     $db= new PDO("mysql:host=".$host.";dbname=".$dbname."",$login,"");
     
-    $log = $_POST['log'];
-    $pass = $_POST['pass'];
-   
     
-    
-    
-    $requete = $db->prepare(' SELECT * FROM `utilisateur` WHERE  `login`= :login AND `password`= :pass ');
-    $requete->bindParam(":login",$log);
-    $requete->bindParam(":pass",$pass);
-    $requete->execute();
-    $requete->setFetchMode(PDO::FETCH_CLASS,'utilisateur');
-    $resultat = $requete->fetchAll();
-    if (!empty($resultat)){
-        foreach ($resultat as $unePersonne=>$donnee )
-        {
-            $_SESSION['name']=$donnee->getNom();
-            $_SESSION['id']=$donnee->getid();
-            
-        }
-        header("location: accueil.php");
+    $nom =$_POST['nom'];
+    $prenom =$_POST['prenom'];
+    $tel =$_POST['tel'];
+    $adresse =$_POST['adresse'];
+    $login =$_POST['login'];
+    $password =$_POST['password'];
+    $password2 =$_POST['password2'];
+    $ville =$_POST['ville'];
+    if($password2!== $password){
         
+        $_SESSION['nominsc']=$_POST['nom']; 
+        $_SESSION['prenom']=$_POST['prenom']; 
+        $_SESSION['tel']=$_POST['tel'];   
+        $_SESSION['adresse']=$_POST['adresse'];  
+        $_SESSION['login']=$_POST['login'];  
+        $_SESSION['ville']=$_POST['ville'];  
+        header("location: inscription");   
     }
-    else{
-
-        var_dump($resultat);
-    }
+    
+    
+    
+    $requete = $db->prepare(' INSERT INTO `utilisateur`(`id`, `nom`, `prenom`, `tel`, `adresse`, `login`, `password`, `ville`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])');
+    $requete->bindParam(":id",$id);
+    $requete->bindParam(":nom",$nom);
+    $requete->bindParam(":prenom",$prenom);
+    $requete->bindParam(":tel",$tel);
+    $requete->bindParam(":adresse",$adresse);
+    $requete->bindParam(":login",$login);
+    $requete->bindParam(":password",$password);
+    $requete->bindParam(":ville",$ville);
+    $requete->execute();
+    $requete->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
+    $resultat = $requete->fetchAll();
 }
+
 
 
 ?>
 <div class="container register">
-        <form action="index.php" name="ajout" method="post">
+<form action="inscription.php" name="ajout" method="post">
                 <div class="row">
                     <div class="col-md-3 register-left">
                         <img src="img/fourchette.png" alt=""/>
@@ -171,20 +184,36 @@ if (isset($_POST['log'])){
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="identifiants *" value="" name="log" id="log"/>
+                                            <input type="text" class="form-control" placeholder="prenom *" value="<?php echo $_SESSION['prenom'];?>" name="prenom" id="prenom"/>
                                         </div>
-                                       
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="tel *" value="" name="tel" id="tel"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="login *" value="" name="login" id="login"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="password *" value="" name="password" id="password" />
+                                        </div>
+
                                        
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="mot de passe *" value="" name="pass" id="pass" />
+                                            <input type="text" class="form-control" placeholder="nom *" value="" name="nom" id="nom" />
                                         </div>
-                                        
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  placeholder="adresse *" value="" name="adresse" id="adresse"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="ville *" value="" name="ville" id="ville"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="password *" value="" name="password2" id="password2" />
+                                        </div>
                                        
                                        
-                                        <input type="submit" class="btnRegister"  name="conn" value="connexion"/>
-                                        <a href="inscription.php" > pas de compte?</a>
+                                        <input type="submit" class="btnRegister"  value="enregistrer" onclick="checkPass()"/>
                                     </div>
                                 </div>
                             </div>
@@ -198,5 +227,21 @@ if (isset($_POST['log'])){
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function checkPass()
+        {
+            var champA = document.getElementById("password").value;
+            var champB = document.getElementById("password2").value;
+            
+            if(champA == champB)
+            {
+                document.form.submit();
+            }
+            else
+            {
+                alert("veuillez remplir les champs correctement");
+            }
+        }
+            </script>
   </body>
 </html>
